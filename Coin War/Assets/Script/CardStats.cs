@@ -20,6 +20,8 @@ public class CardStats : MonoBehaviour
 
     public string cardname;
 
+    public SpriteRenderer mainArt;
+
     //Current Classes
     public CardElements[] cardClass =  new CardElements[2];
 
@@ -39,8 +41,43 @@ public class CardStats : MonoBehaviour
 
     public TextMesh cardNameText;
     public TextMesh cardSpeedText;
+    //Card Graphics for main image
+    [SerializeField]
+    private Sprite blademasterSpriteMain;
+    [SerializeField]
+    private Sprite druidSpriteMain;
+    [SerializeField]
+    private Sprite barbarianSpriteMain;
+    [SerializeField]
+    private Sprite assassinSpriteMain;
+    [SerializeField]
+    private Sprite alchemistSpriteMain;
+    [SerializeField]
+    private Sprite necromancerSpriteMain;
+    [SerializeField]
+    private Sprite mageSpriteMain;
+    [SerializeField]
+    private Sprite priestSpriteMain;
 
-    //Card Graphics
+    //Card Graphics for classes
+    [SerializeField]
+    private Sprite blademasterSpriteClass;
+    [SerializeField]
+    private Sprite druidSpriteClass;
+    [SerializeField]
+    private Sprite barbarianSpriteClass;
+    [SerializeField]
+    private Sprite assassinSpriteClass;
+    [SerializeField]
+    private Sprite alchemistSpriteClass;
+    [SerializeField]
+    private Sprite necromancerSpriteClass;
+    [SerializeField]
+    private Sprite mageSpriteClass;
+    [SerializeField]
+    private Sprite priestSpriteClass;
+
+    //Card Graphics for strong and weak
     [SerializeField]
     private Sprite blademasterSprite;
     [SerializeField]
@@ -63,11 +100,24 @@ public class CardStats : MonoBehaviour
         //Initiliaze Card
         cardNameText.text = cardname;
         cardSpeedText.text = "" + speedLevel;
+        InitializeMainSprites();
         InitializeClassesSprites();
         InitializeStrongClassesSprites();
         InitializeWeakClassesSprites();
     }
-    void InitializeClassesSprites()
+    void InitializeMainSprites()
+    {
+        if (cardname.Contains("ALCHEMIST")) mainArt.sprite = alchemistSpriteMain;
+        else if(cardname.Contains("ASSASSIN")) mainArt.sprite = assassinSpriteMain;
+        else if (cardname.Contains("BLADEMASTER")) mainArt.sprite = blademasterSpriteMain;
+        else if (cardname.Contains("MAGE")) mainArt.sprite = mageSpriteMain;
+        else if (cardname.Contains("DRUID")) mainArt.sprite = druidSpriteMain;
+        else if (cardname.Contains("NECROMANCER")) mainArt.sprite = necromancerSpriteMain;
+        else if (cardname.Contains("PRIEST")) mainArt.sprite = priestSpriteMain;
+        else if (cardname.Contains("BARBARIAN")) mainArt.sprite = barbarianSpriteMain;
+
+    }
+        void InitializeClassesSprites()
     {
         int count = 0;
         foreach (CardElements c in cardClass) {
@@ -75,28 +125,28 @@ public class CardStats : MonoBehaviour
             switch (c)
             {
                 case CardElements.Blademaster:
-                    ClassSlot[count].sprite = blademasterSprite;
+                    ClassSlot[count].sprite = blademasterSpriteClass;
                     break;
                 case CardElements.Assassin:
-                    ClassSlot[count].sprite = assassinSprite;
+                    ClassSlot[count].sprite = assassinSpriteClass;
                     break;
                 case CardElements.Necromancer:
-                    ClassSlot[count].sprite = necromancerSprite;
+                    ClassSlot[count].sprite = necromancerSpriteClass;
                     break;
                 case CardElements.Mage:
-                    ClassSlot[count].sprite = mageSprite;
+                    ClassSlot[count].sprite = mageSpriteClass;
                     break;
                 case CardElements.Priest:
-                     ClassSlot[count].sprite = priestSprite;
+                     ClassSlot[count].sprite = priestSpriteClass;
                     break;
                 case CardElements.Barbarian:
-                    ClassSlot[count].sprite = barbarianSprite;
+                    ClassSlot[count].sprite = barbarianSpriteClass;
                     break;
                 case CardElements.Druid:
-                    ClassSlot[count].sprite = druidSprite;
+                    ClassSlot[count].sprite = druidSpriteClass;
                     break;
                 case CardElements.Alchemist:
-                    ClassSlot[count].sprite = alchemistSprite;
+                    ClassSlot[count].sprite = alchemistSpriteClass;
                     break;
 
                 default:

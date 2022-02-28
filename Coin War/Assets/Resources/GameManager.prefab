@@ -46,6 +46,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   username: 
   side: 
+  allCards:
+  - {fileID: 6842291156172821262, guid: c0b722e14a0c3954080129738a5d2a40, type: 3}
+  - {fileID: 7916533430849599794, guid: f0d12bc8dcb8ae74a9e2a279be639f24, type: 3}
+  - {fileID: 6408763655725501171, guid: b66da5dc54d3b1c45837dbb4cc51b4fe, type: 3}
+  - {fileID: 7650011891506951888, guid: 5432b1adf6ac3394f842fd8f4e4d1415, type: 3}
+  - {fileID: 7572330531148317470, guid: ec8db7c76b248b4468cafe522cbd7a48, type: 3}
+  - {fileID: 5934835808274941455, guid: ef63c109d8d31d3419309b444885ec40, type: 3}
+  - {fileID: 7477630129852454475, guid: b51b29c68286a8748817ce838fcea61c, type: 3}
+  - {fileID: 5246168859478262532, guid: 99310df1474993147bf23a3d0c61e0fc, type: 3}
+  - {fileID: 1547050563227836430, guid: 927dfefe107d60741a4a8dfe08118174, type: 3}
+  currentDeck:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &8158364447500276892
 MonoBehaviour:
   m_ObjectHideFlags: 0

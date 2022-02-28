@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public string username;
 
     public string side;
+    public List<GameObject> allCards = new List<GameObject>();
+    public List<GameObject> currentDeck = new List<GameObject>();
 
     //This will be set to true when both players are ready to start.
     private bool playerReady = false;
@@ -44,10 +46,44 @@ public class GameManager : MonoBehaviour
     {
         GetComponent<PhotonView>().RPC("PhotonPlayerIsReady", RpcTarget.AllBuffered, true);
     }
+    public void ShuffleCards(int[] cardIndex)
+    {
+        currentDeck.Clear();
+        for (int i = 0; i < 5; ++i)
+        {
+           
+            currentDeck.Add(allCards[cardIndex[i]]);
+        }
+    }
+    [PunRPC]
+    public void SetCardIndex(int[] cardIndex)
+    {
+        //receive a shuffle of cards that is int vector in which each number is a different card type
+        //and then send it to all clients
+        ShuffleCards(cardIndex);
+    }
     [PunRPC]
     public void PhotonPlayerIsReady(bool b)
     {
         playerReady = b;
+
+        //Shuffle deck
+        int count = 0;
+        List<int> tempCards = new List<int>();
+        while(count < 5)
+        {
+            int rand = Random.Range(0, allCards.Count);
+
+            if (!tempCards.Contains(rand))
+            {
+                tempCards.Add(rand);
+                count++;
+            }
+            
+        }
+        int[] tempCardsConvert = tempCards.ToArray();
+        GetComponent<PhotonView>().RPC("SetCardIndex", RpcTarget.AllBuffered, (object)tempCardsConvert);
+
     }
     void UIinit()
     {
