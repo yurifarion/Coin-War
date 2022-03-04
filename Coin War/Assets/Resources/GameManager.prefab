@@ -56,12 +56,7 @@ MonoBehaviour:
   - {fileID: 7477630129852454475, guid: b51b29c68286a8748817ce838fcea61c, type: 3}
   - {fileID: 5246168859478262532, guid: 99310df1474993147bf23a3d0c61e0fc, type: 3}
   - {fileID: 1547050563227836430, guid: 927dfefe107d60741a4a8dfe08118174, type: 3}
-  currentDeck:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  currentDeck: []
 --- !u!114 &8158364447500276892
 MonoBehaviour:
   m_ObjectHideFlags: 0

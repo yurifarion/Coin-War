@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     
     public string username;
 
-    public string side;
+    public string side = "";
     public List<GameObject> allCards = new List<GameObject>();
     public List<GameObject> currentDeck = new List<GameObject>();
 
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     {
         //receive a shuffle of cards that is int vector in which each number is a different card type
         //and then send it to all clients
+        Debug.Log("Cards shuffle:" + cardIndex+"From Player: "+username);
         ShuffleCards(cardIndex);
     }
     [PunRPC]
@@ -67,23 +68,26 @@ public class GameManager : MonoBehaviour
     {
         playerReady = b;
 
-        //Shuffle deck
-        int count = 0;
-        List<int> tempCards = new List<int>();
-        while(count < 5)
+        //It will first update username for all clients
+        if (GetComponent<PhotonView>().IsMine)
         {
-            int rand = Random.Range(0, allCards.Count);
-
-            if (!tempCards.Contains(rand))
+            //Shuffle deck
+            int count = 0;
+            List<int> tempCards = new List<int>();
+            while (count < 5)
             {
-                tempCards.Add(rand);
-                count++;
-            }
-            
-        }
-        int[] tempCardsConvert = tempCards.ToArray();
-        GetComponent<PhotonView>().RPC("SetCardIndex", RpcTarget.AllBuffered, (object)tempCardsConvert);
+                int rand = Random.Range(0, allCards.Count);
 
+                if (!tempCards.Contains(rand))
+                {
+                    tempCards.Add(rand);
+                    count++;
+                }
+
+            }
+            int[] tempCardsConvert = tempCards.ToArray();
+            GetComponent<PhotonView>().RPC("SetCardIndex", RpcTarget.AllBuffered, (object)tempCardsConvert);
+        }
     }
     void UIinit()
     {
@@ -109,7 +113,7 @@ public class GameManager : MonoBehaviour
     public void UpdateSide(string s)
     {
         //It will first update username for all clients
-        if (GetComponent<PhotonView>().IsMine)
+        if (GetComponent<PhotonView>().IsMine && side == "")
         {
             GetComponent<PhotonView>().RPC("PUNUpdateSide", RpcTarget.AllBuffered, s);
         }
