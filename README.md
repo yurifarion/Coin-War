@@ -9,7 +9,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
 
-<img src="sc_1.png" alt="exemplo imagem">
+<img src="Sc_12.png" alt="exemplo imagem">
 
 > Coin War is a card game, you can use predefined cards that you will receive randomly. it works almost like a rock, paper scissors game.
 
