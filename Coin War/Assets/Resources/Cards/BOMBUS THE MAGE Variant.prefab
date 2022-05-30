@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1187975725486306785, guid: 1f8109d608084e64e84049b44249570e, type: 3}
       propertyPath: m_Name
-      value: BOMBUS THE MAGE
+      value: BOMBUS THE MAGE Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1187975725486306786, guid: 1f8109d608084e64e84049b44249570e, type: 3}
       propertyPath: cardname

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+
 public class CardStats : MonoBehaviour
 {
     public enum CardElements
@@ -17,6 +18,12 @@ public class CardStats : MonoBehaviour
         Priest,
         None
     }
+
+    //This is ID, it's unique, and its based in the location the card was spawned in the board
+    public int ID = 0;
+
+
+    public GameObject deckSlot;
 
     public string cardname;
 
@@ -38,9 +45,11 @@ public class CardStats : MonoBehaviour
     public SpriteRenderer[] strongAgainstSlot = new SpriteRenderer[2];
     public SpriteRenderer[] weakAgainstSlot = new SpriteRenderer[2];
 
+    private BoardManager _board;
 
-    public TextMesh cardNameText;
-    public TextMesh cardSpeedText;
+    public TMPro.TextMeshPro cardNameText;
+    public TMPro.TextMeshPro cardSpeedText;
+
     //Card Graphics for main image
     [SerializeField]
     private Sprite blademasterSpriteMain;
@@ -104,6 +113,9 @@ public class CardStats : MonoBehaviour
         InitializeClassesSprites();
         InitializeStrongClassesSprites();
         InitializeWeakClassesSprites();
+
+        //find board
+        _board = GameObject.FindGameObjectWithTag("BoardManager").GetComponent<BoardManager>();
     }
     void InitializeMainSprites()
     {
@@ -235,6 +247,64 @@ public class CardStats : MonoBehaviour
                     break;
             }
             count++;
+        }
+    }
+    //Using trigger we are checking if the card is above a empty deck to be placed
+    private void OnTriggerEnter(Collider other)
+    {
+        
+       if(other.gameObject.tag == "CardSlot" && other.gameObject.GetComponent<DeckSlot>() != null)
+        {
+            //check if the deckSlot is empty
+            if (other.gameObject.GetComponent<DeckSlot>().GetCard() == null)
+            {
+                
+               
+                //Get the index of the card matching  ID
+                 List<int> DeckIndexes = new List<int>(_board.GetDeckIndexes());
+                List<int> BattleIndexes = new List<int>(_board.GetBattleIndexes());
+
+                //If its -1 it means that it had already been deleted
+                if (DeckIndexes.IndexOf(this.ID) != -1)
+                {
+                    //zero the origin
+                    _board.SetDeck(DeckIndexes.IndexOf(this.ID), 0);
+                }
+                if (BattleIndexes.IndexOf(this.ID) != -1)
+                {
+                    //zero the origin
+                    _board.SetBattleDeck(BattleIndexes.IndexOf(this.ID), 0);
+                }
+
+
+                //Free the last deck slot
+                deckSlot.GetComponent<DeckSlot>().SetCard(null);
+                //Fill the current one
+                deckSlot = other.gameObject;
+                deckSlot.GetComponent<DeckSlot>().SetCard(this.gameObject);
+                this.gameObject.transform.parent = deckSlot.gameObject.transform;
+
+                //Set the battleIndex with this card
+                
+                //If card slot is Card_1 index should be the first so in that case 0
+                //And if should only update the battle if its been placed in a Battle slot
+                if (other.name.Contains("Battle"))
+                {
+                    int index = int.Parse(deckSlot.name.Replace("BattleCard_", ""));
+                    _board.SetBattleDeck(index - 1, this.ID);
+                }
+                else
+                {
+                    int index = int.Parse(deckSlot.name.Replace("Card_", ""));
+                    _board.SetDeck(index - 1, this.ID);
+                }
+
+                _board.UpdateIndexes();
+
+
+
+
+            }
         }
     }
 

@@ -13,7 +13,7 @@ public class SpawnPlayers : MonoBehaviour
         //Pick Panel and disable it
         playerUsername.transform.parent.parent.gameObject.SetActive(false);
         //Enable Wait For Player
-        PhotonNetwork.LoadLevel("Lobby");
+        PhotonNetwork.LoadLevel("Loading");
 
     }
   

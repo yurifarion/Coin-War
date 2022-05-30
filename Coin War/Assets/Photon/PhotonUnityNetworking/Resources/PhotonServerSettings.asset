@@ -44,6 +44,9 @@ MonoBehaviour:
   - PUNUpdateUsername
   - PhotonPlayerIsReady
   - SetCardIndex
+  - PhotonUpdateIndexes
+  - PhotonSetTurnType
+  - PhotonAddAttack
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

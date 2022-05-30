@@ -12,6 +12,8 @@ public class createAndJoinRoom : MonoBehaviourPunCallbacks
 	//quick match UI gameObjects
 	public GameObject findMatchBtn;
 	public GameObject searchingPnl;
+
+	public Text errorUI;
 	
 	public void FindMatch(){
 		findMatchBtn.SetActive(false);
@@ -27,6 +29,7 @@ public class createAndJoinRoom : MonoBehaviourPunCallbacks
 		MakeRoom();
 		
 	}
+	
 	void MakeRoom(){
 		int randomRoomName = Random.Range(0,5000);
 		RoomOptions roomOptions = new RoomOptions()
@@ -47,17 +50,34 @@ public class createAndJoinRoom : MonoBehaviourPunCallbacks
 	}
     public void CreateRoom()
     {
-		RoomOptions roomOptions = new RoomOptions()
+		if (createInput.text.Length > 0)
 		{
-			MaxPlayers = 2
-		};
-        PhotonNetwork.CreateRoom(createInput.text,roomOptions);
+			RoomOptions roomOptions = new RoomOptions()
+			{
+				MaxPlayers = 2
+			};
+			PhotonNetwork.CreateRoom(createInput.text, roomOptions);
+		}
+		else errorUI.text = "The name of the Room can't be blank";
     }
-    public void JoinRoom()
+	public virtual void OnCreateRoomFailed(short returnCode, string message)
+	{
+		errorUI.text = message;
+	}
+	public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(joinInput.text);
-    }
-    public override void OnJoinedRoom()
+		if (joinInput.text.Length > 0)
+		{
+
+			PhotonNetwork.JoinRoom(joinInput.text);
+		}
+		else errorUI.text = "The name of the Room can't be blank";
+	}
+	public virtual void OnJoinRoomFailed(short returnCode, string message)
+	{
+		errorUI.text = message;
+	}
+	public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel("Game");
     }

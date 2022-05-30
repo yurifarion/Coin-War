@@ -7,6 +7,8 @@ TagManager:
   - Canvas
   - GameManager
   - UI
+  - CardSlot
+  - BoardManager
   layers:
   - Default
   - TransparentFX
@@ -43,4 +45,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FullCard
+    uniqueID: 568165935
+    locked: 0
+  - name: AttackTurn
+    uniqueID: 2020764557
     locked: 0
